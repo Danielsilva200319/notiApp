@@ -7,6 +7,8 @@ namespace Core.Entities
 {
     public class HiloRespuesta : BaseEntity
     {
-        
+        public string NombreTipo { get; set; }
+        public ICollection<ModuloNotificacion> ModuloNotificaciones { get; set; }
+        public ICollection<BlockChain> BlockChains { get; set; }
     }
 }

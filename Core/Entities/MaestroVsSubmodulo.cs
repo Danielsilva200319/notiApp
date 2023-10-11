@@ -7,11 +7,10 @@ namespace Core.Entities
 {
     public class MaestroVsSubmodulo : BaseEntity
     {
+        public int IdModuloMaestro { get; set; }
         public ModuloMaestro ModulosMaestros { get; set; }
-        public int IdMaestro { get; set; }
-        public Submodulo Submodulos { get; set; }
         public int IdSubmodulo { get; set; }
-        public DateTime FechaCreacion { get; set; }
-        public DateTime FechaModificacion { get; set; }
+        public Submodulo Submodulos { get; set; }
+        public ICollection<GenericoVsSubmodulo> GenericosVsSubmodulos { get; set; }
     }
 }

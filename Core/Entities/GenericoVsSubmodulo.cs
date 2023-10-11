@@ -7,13 +7,11 @@ namespace Core.Entities
 {
     public class GenericoVsSubmodulo : BaseEntity
     {
+        public int IdPermisoGenerico { get; set; }
         public PermisoGenerico PermisosGenericos { get; set; }
-        public int IdGenerico { get; set; }
-        public Submodulo Submodulos { get; set; }
-        public int IdSubmodulo { get; set; }
-        public Rol Roles{ get; set; }
+        public int IdMaestroVsSubmodulos { get; set; }
+        public MaestroVsSubmodulo MaestroVsSubmodulos { get; set; }
         public int IdRol { get; set; }
-        public DateTime FechaCreacion { get; set; }
-        public DateTime FechaModificacion { get; set; }
+        public Rol Roles { get; set; }
     }
 }
