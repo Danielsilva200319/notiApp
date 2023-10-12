@@ -12,7 +12,7 @@ namespace Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<TipoRequerimiento> builder)
         {
-            builder.ToTable("Tipo Requerimiento");
+            builder.ToTable("TipoRequerimiento");
 
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id);

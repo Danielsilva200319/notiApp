@@ -12,7 +12,7 @@ namespace Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<PermisoGenerico> builder)
         {
-            builder.ToTable("Permiso Generico");
+            builder.ToTable("PermisoGenerico");
 
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id);

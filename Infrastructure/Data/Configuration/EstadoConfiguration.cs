@@ -12,7 +12,7 @@ namespace Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<EstadoNotificacion> builder)
         {
-            builder.ToTable("Estado Notificación");
+            builder.ToTable("EstadoNotificación");
 
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id);

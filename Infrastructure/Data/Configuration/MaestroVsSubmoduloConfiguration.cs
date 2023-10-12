@@ -12,7 +12,7 @@ namespace Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<MaestroVsSubmodulo> builder)
         {
-            builder.ToTable("Maestro vs Submodulo");
+            builder.ToTable("MaestroVsSubmodulo");
 
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id);

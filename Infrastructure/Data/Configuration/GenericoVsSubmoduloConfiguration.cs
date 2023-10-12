@@ -12,7 +12,7 @@ namespace Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<GenericoVsSubmodulo> builder)
         {
-            builder.ToTable("Generico vs Submodulo");
+            builder.ToTable("GenericoVsSubmodulo");
 
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id);

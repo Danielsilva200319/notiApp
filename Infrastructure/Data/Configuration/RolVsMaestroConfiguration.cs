@@ -12,7 +12,7 @@ namespace Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<RolVsMaestro> builder)
         {
-            builder.ToTable("Rol vs Maestro");
+            builder.ToTable("RolVsMaestro");
 
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id);
