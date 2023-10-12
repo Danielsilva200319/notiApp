@@ -2,11 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Entities;
+using Core.Interfaces;
+using Infrastructure.Data;
 
 namespace Infrastructure.Repositories
 {
-    public class BlockChainRepository
+    public class BlockChainRepository : GenericRepository<BlockChain>, IBlockChainRepository
     {
-        
+        private readonly notiAppContext _context;
+        public BlockChainRepository(notiAppContext context) : base(context)
+        {
+            _context = context;
+        }
     }
 }

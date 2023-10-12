@@ -8,7 +8,7 @@ namespace ApiNoti.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BaseControllerAPi
+    public class BaseControllerAPi : ControllerBase
     {
         
     }
