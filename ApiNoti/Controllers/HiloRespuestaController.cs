@@ -10,12 +10,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiNoti.Controllers
 {
-    public class AuditoriaController : BaseControllerAPi
+    public class HiloRespuestaController : BaseControllerAPi
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public AuditoriaController(IUnitOfWork unitOfWork, IMapper mapper)
+        public HiloRespuestaController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -23,75 +23,75 @@ namespace ApiNoti.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<AuditoriaDto>>> Get()
+        public async Task<ActionResult<IEnumerable<HiloRespuestaDto>>>Get()
         {
-            var auditorias = await _unitOfWork.Auditorias.GetAllAsync();
-            return _mapper.Map<List<AuditoriaDto>>(auditorias);
+            var hiloRespuestas = await _unitOfWork.HiloRespuestas.GetAllAsync();
+            return _mapper.Map<List<HiloRespuestaDto>>(hiloRespuestas);
         }
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<AuditoriaDto>>Get(int id)
+        public async Task<ActionResult<HiloRespuestaDto>>Get(int id)
         {
-            var mascota = await _unitOfWork.Auditorias.GetByIdAsync(id);
-            if(mascota == null)
+            var hiloRespuesta = await _unitOfWork.HiloRespuestas.GetByIdAsync(id);
+            if(hiloRespuesta == null)
             {
                 return NotFound();
             }
-            return _mapper.Map<AuditoriaDto>(mascota);
+            return _mapper.Map<HiloRespuestaDto>(hiloRespuesta);
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<AuditoriaDto>>Post(AuditoriaDto auditoriaDto)
+        public async Task<ActionResult<HiloRespuestaDto>>Post(HiloRespuestaDto hiloRespuestaDto)
         {
-            var auditoria = _mapper.Map<Auditoria>(auditoriaDto);
+            var hiloRepuesta = _mapper.Map<HiloRespuesta>(hiloRespuestaDto);
 
-            if(auditoriaDto.FechaCreacion == DateTime.MinValue)
+            if(hiloRespuestaDto.FechaCreacion == DateTime.MinValue)
             {
-                auditoriaDto.FechaCreacion = DateTime.Now; 
+                hiloRespuestaDto.FechaCreacion = DateTime.Now; 
             }
-            if(auditoriaDto.FechaModificacion == DateTime.MinValue)
+            if(hiloRespuestaDto.FechaModificacion == DateTime.MinValue)
             {
-                auditoriaDto.FechaModificacion = DateTime.Now; 
+                hiloRespuestaDto.FechaModificacion = DateTime.Now; 
             }
-            this._unitOfWork.Auditorias.Add(auditoria);
+            this._unitOfWork.HiloRespuestas.Add(hiloRepuesta);
             await _unitOfWork.SaveAsync();
             
-            if(auditoria == null)
+            if(hiloRepuesta == null)
             {
                 return BadRequest();
             }
-            auditoriaDto.Id = auditoria.Id;
-            return CreatedAtAction(nameof(Post), new {id = auditoriaDto.Id}, auditoriaDto);
+            hiloRespuestaDto.Id = hiloRepuesta.Id;
+            return CreatedAtAction(nameof(Post), new {id = hiloRespuestaDto.Id}, hiloRespuestaDto);
         }
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<AuditoriaDto>> Put(int id, [FromBody] AuditoriaDto auditoriaDto)
+        public async Task<ActionResult<HiloRespuestaDto>> Put(int id, [FromBody] HiloRespuestaDto hiloRespuestaDto)
         {
-            if(auditoriaDto == null)
+            if(hiloRespuestaDto == null)
             {
                 return NotFound();
             }
-            var auditorias = _mapper.Map<Auditoria>(auditoriaDto);
-            _unitOfWork.Auditorias.Update(auditorias);
+            var mascotas = _mapper.Map<HiloRespuesta>(hiloRespuestaDto);
+            _unitOfWork.HiloRespuestas.Update(mascotas);
             await _unitOfWork.SaveAsync();
-            return auditoriaDto;
+            return hiloRespuestaDto;
         }
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult>Delete(int id)
         {
-            var auditoria = await _unitOfWork.Auditorias.GetByIdAsync(id);
-            if(auditoria == null)
+            var hiloRespuesta = await _unitOfWork.HiloRespuestas.GetByIdAsync(id);
+            if(hiloRespuesta == null)
             {
                 return NotFound();
             }
-            _unitOfWork.Auditorias.Remove(auditoria);
+            _unitOfWork.HiloRespuestas.Remove(hiloRespuesta);
             await _unitOfWork.SaveAsync();
             return NoContent();
         }

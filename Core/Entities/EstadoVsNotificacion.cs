@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Core.Entities
 {
-    public class EstadoNotificacion : BaseEntity
+    public class EstadoVsNotificacion : BaseEntity
     {
         public string NombreEstado { get; set; }
         public ICollection<ModuloNotificacion> ModuloNotificaciones { get; set; }

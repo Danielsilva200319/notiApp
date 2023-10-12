@@ -6,7 +6,7 @@ using Core.Entities;
 
 namespace Core.Interfaces
 {
-    public interface IHiloRepuestaRepository : IGenericRepository<HiloRespuesta>
+    public interface IHiloRespuestaRepository : IGenericRepository<HiloRespuesta>
     {
         
     }

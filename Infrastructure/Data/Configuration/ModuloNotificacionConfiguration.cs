@@ -29,9 +29,9 @@ namespace Infrastructure.Data.Configuration
             .WithMany(p => p.ModuloNotificaciones)
             .HasForeignKey(p => p.IdRadicado);
 
-            builder.HasOne(p => p.EstadoNotificaciones)
+            builder.HasOne(p => p.EstadoVsNotificaciones)
             .WithMany(p => p.ModuloNotificaciones)
-            .HasForeignKey(p => p.IdEstadoNotificacion);
+            .HasForeignKey(p => p.IdEstadoVsNotificacion);
 
             builder.HasOne(p => p.HiloRespuestas)
             .WithMany(p => p.ModuloNotificaciones)

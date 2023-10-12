@@ -11,7 +11,7 @@ namespace ApiNoti.Dtos
         public string AsuntoNotificacion { get; set; }
         public int IdTipoNotificacion { get; set; }
         public int IdRadicado { get; set; }
-        public int IdEstadoNotificacion { get; set; }
+        public int IdEstadoVsNotificacion { get; set; }
         public int IdHiloRespuesta { get; set; }
         public int IdFormato { get; set; }
         public int IdTipoRequerimiento { get; set; }

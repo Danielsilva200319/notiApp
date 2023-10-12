@@ -10,12 +10,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiNoti.Controllers
 {
-    public class AuditoriaController : BaseControllerAPi
+    public class RolVsMaestroController : BaseControllerAPi
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public AuditoriaController(IUnitOfWork unitOfWork, IMapper mapper)
+        public RolVsMaestroController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -23,75 +23,75 @@ namespace ApiNoti.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<AuditoriaDto>>> Get()
+        public async Task<ActionResult<IEnumerable<RolVsMaestroDto>>>Get()
         {
-            var auditorias = await _unitOfWork.Auditorias.GetAllAsync();
-            return _mapper.Map<List<AuditoriaDto>>(auditorias);
+            var rolVsMaestros = await _unitOfWork.RolVsMaestros.GetAllAsync();
+            return _mapper.Map<List<RolVsMaestroDto>>(rolVsMaestros);
         }
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<AuditoriaDto>>Get(int id)
+        public async Task<ActionResult<RolVsMaestroDto>>Get(int id)
         {
-            var mascota = await _unitOfWork.Auditorias.GetByIdAsync(id);
-            if(mascota == null)
+            var rolVsMaestro = await _unitOfWork.RolVsMaestros.GetByIdAsync(id);
+            if(rolVsMaestro == null)
             {
                 return NotFound();
             }
-            return _mapper.Map<AuditoriaDto>(mascota);
+            return _mapper.Map<RolVsMaestroDto>(rolVsMaestro);
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<AuditoriaDto>>Post(AuditoriaDto auditoriaDto)
+        public async Task<ActionResult<RolVsMaestroDto>>Post(RolVsMaestroDto rolVsMaestroDto)
         {
-            var auditoria = _mapper.Map<Auditoria>(auditoriaDto);
+            var rolVsMaestro = _mapper.Map<RolVsMaestro>(rolVsMaestroDto);
 
-            if(auditoriaDto.FechaCreacion == DateTime.MinValue)
+            if(rolVsMaestroDto.FechaCreacion == DateTime.MinValue)
             {
-                auditoriaDto.FechaCreacion = DateTime.Now; 
+                rolVsMaestroDto.FechaCreacion = DateTime.Now; 
             }
-            if(auditoriaDto.FechaModificacion == DateTime.MinValue)
+            if(rolVsMaestroDto.FechaModificacion == DateTime.MinValue)
             {
-                auditoriaDto.FechaModificacion = DateTime.Now; 
+                rolVsMaestroDto.FechaModificacion = DateTime.Now; 
             }
-            this._unitOfWork.Auditorias.Add(auditoria);
+            this._unitOfWork.RolVsMaestros.Add(rolVsMaestro);
             await _unitOfWork.SaveAsync();
             
-            if(auditoria == null)
+            if(rolVsMaestro == null)
             {
                 return BadRequest();
             }
-            auditoriaDto.Id = auditoria.Id;
-            return CreatedAtAction(nameof(Post), new {id = auditoriaDto.Id}, auditoriaDto);
+            rolVsMaestroDto.Id = rolVsMaestro.Id;
+            return CreatedAtAction(nameof(Post), new {id = rolVsMaestroDto.Id}, rolVsMaestroDto);
         }
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<AuditoriaDto>> Put(int id, [FromBody] AuditoriaDto auditoriaDto)
+        public async Task<ActionResult<RolVsMaestroDto>> Put(int id, [FromBody] RolVsMaestroDto rolVsMaestroDto)
         {
-            if(auditoriaDto == null)
+            if(rolVsMaestroDto == null)
             {
                 return NotFound();
             }
-            var auditorias = _mapper.Map<Auditoria>(auditoriaDto);
-            _unitOfWork.Auditorias.Update(auditorias);
+            var rolVsMaestros = _mapper.Map<RolVsMaestro>(rolVsMaestroDto);
+            _unitOfWork.RolVsMaestros.Update(rolVsMaestros);
             await _unitOfWork.SaveAsync();
-            return auditoriaDto;
+            return rolVsMaestroDto;
         }
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult>Delete(int id)
         {
-            var auditoria = await _unitOfWork.Auditorias.GetByIdAsync(id);
-            if(auditoria == null)
+            var rolVsMaestro = await _unitOfWork.RolVsMaestros.GetByIdAsync(id);
+            if(rolVsMaestro == null)
             {
                 return NotFound();
             }
-            _unitOfWork.Auditorias.Remove(auditoria);
+            _unitOfWork.RolVsMaestros.Remove(rolVsMaestro);
             await _unitOfWork.SaveAsync();
             return NoContent();
         }

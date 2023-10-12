@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Data.Configuration
 {
-    public class EstadoConfiguration : IEntityTypeConfiguration<EstadoNotificacion>
+    public class EstadoVsNotificacionConfiguration : IEntityTypeConfiguration<EstadoVsNotificacion>
     {
-        public void Configure(EntityTypeBuilder<EstadoNotificacion> builder)
+        public void Configure(EntityTypeBuilder<EstadoVsNotificacion> builder)
         {
-            builder.ToTable("EstadoNotificación");
+            builder.ToTable("EstadoVsNotificación");
 
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Id);

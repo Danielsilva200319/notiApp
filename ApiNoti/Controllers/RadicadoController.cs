@@ -10,12 +10,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiNoti.Controllers
 {
-    public class AuditoriaController : BaseControllerAPi
+    public class RadicadoController : BaseControllerAPi
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public AuditoriaController(IUnitOfWork unitOfWork, IMapper mapper)
+        public RadicadoController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -23,75 +23,75 @@ namespace ApiNoti.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<AuditoriaDto>>> Get()
+        public async Task<ActionResult<IEnumerable<RadicadoDto>>>Get()
         {
-            var auditorias = await _unitOfWork.Auditorias.GetAllAsync();
-            return _mapper.Map<List<AuditoriaDto>>(auditorias);
+            var radicados = await _unitOfWork.Radicados.GetAllAsync();
+            return _mapper.Map<List<RadicadoDto>>(radicados);
         }
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<AuditoriaDto>>Get(int id)
+        public async Task<ActionResult<RadicadoDto>>Get(int id)
         {
-            var mascota = await _unitOfWork.Auditorias.GetByIdAsync(id);
-            if(mascota == null)
+            var radicado = await _unitOfWork.Radicados.GetByIdAsync(id);
+            if(radicado == null)
             {
                 return NotFound();
             }
-            return _mapper.Map<AuditoriaDto>(mascota);
+            return _mapper.Map<RadicadoDto>(radicado);
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<AuditoriaDto>>Post(AuditoriaDto auditoriaDto)
+        public async Task<ActionResult<RadicadoDto>>Post(RadicadoDto radicadoDto)
         {
-            var auditoria = _mapper.Map<Auditoria>(auditoriaDto);
+            var radicado = _mapper.Map<Radicado>(radicadoDto);
 
-            if(auditoriaDto.FechaCreacion == DateTime.MinValue)
+            if(radicadoDto.FechaCreacion == DateTime.MinValue)
             {
-                auditoriaDto.FechaCreacion = DateTime.Now; 
+                radicadoDto.FechaCreacion = DateTime.Now; 
             }
-            if(auditoriaDto.FechaModificacion == DateTime.MinValue)
+            if(radicadoDto.FechaModificacion == DateTime.MinValue)
             {
-                auditoriaDto.FechaModificacion = DateTime.Now; 
+                radicadoDto.FechaModificacion = DateTime.Now; 
             }
-            this._unitOfWork.Auditorias.Add(auditoria);
+            this._unitOfWork.Radicados.Add(radicado);
             await _unitOfWork.SaveAsync();
             
-            if(auditoria == null)
+            if(radicado == null)
             {
                 return BadRequest();
             }
-            auditoriaDto.Id = auditoria.Id;
-            return CreatedAtAction(nameof(Post), new {id = auditoriaDto.Id}, auditoriaDto);
+            radicadoDto.Id = radicado.Id;
+            return CreatedAtAction(nameof(Post), new {id = radicadoDto.Id}, radicadoDto);
         }
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<AuditoriaDto>> Put(int id, [FromBody] AuditoriaDto auditoriaDto)
+        public async Task<ActionResult<RadicadoDto>> Put(int id, [FromBody] RadicadoDto radicadoDto)
         {
-            if(auditoriaDto == null)
+            if(radicadoDto == null)
             {
                 return NotFound();
             }
-            var auditorias = _mapper.Map<Auditoria>(auditoriaDto);
-            _unitOfWork.Auditorias.Update(auditorias);
+            var radicados = _mapper.Map<Radicado>(radicadoDto);
+            _unitOfWork.Radicados.Update(radicados);
             await _unitOfWork.SaveAsync();
-            return auditoriaDto;
+            return radicadoDto;
         }
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult>Delete(int id)
         {
-            var auditoria = await _unitOfWork.Auditorias.GetByIdAsync(id);
-            if(auditoria == null)
+            var radicado = await _unitOfWork.Radicados.GetByIdAsync(id);
+            if(radicado == null)
             {
                 return NotFound();
             }
-            _unitOfWork.Auditorias.Remove(auditoria);
+            _unitOfWork.Radicados.Remove(radicado);
             await _unitOfWork.SaveAsync();
             return NoContent();
         }

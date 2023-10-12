@@ -307,7 +307,7 @@ namespace Infrastructure.Data.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     IdTipoNotificacion = table.Column<int>(type: "int", nullable: false),
                     IdRadicado = table.Column<int>(type: "int", nullable: false),
-                    IdEstadoNotificacion = table.Column<int>(type: "int", nullable: false),
+                    IdEstadoVsNotificacion = table.Column<int>(type: "int", nullable: false),
                     IdHiloRespuesta = table.Column<int>(type: "int", nullable: false),
                     IdFormato = table.Column<int>(type: "int", nullable: false),
                     IdTipoRequerimiento = table.Column<int>(type: "int", nullable: false),
@@ -320,8 +320,8 @@ namespace Infrastructure.Data.Migrations
                 {
                     table.PrimaryKey("PK_ModuloNotificación", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ModuloNotificación_EstadoNotificación_IdEstadoNotificacion",
-                        column: x => x.IdEstadoNotificacion,
+                        name: "FK_ModuloNotificación_EstadoNotificación_IdEstadoVsNotificacion",
+                        column: x => x.IdEstadoVsNotificacion,
                         principalTable: "EstadoNotificación",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -435,9 +435,9 @@ namespace Infrastructure.Data.Migrations
                 column: "IdSubmodulo");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ModuloNotificación_IdEstadoNotificacion",
+                name: "IX_ModuloNotificación_IdEstadoVsNotificacion",
                 table: "ModuloNotificación",
-                column: "IdEstadoNotificacion");
+                column: "IdEstadoVsNotificacion");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ModuloNotificación_IdFormato",

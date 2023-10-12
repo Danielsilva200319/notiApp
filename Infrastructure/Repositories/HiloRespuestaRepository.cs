@@ -8,7 +8,7 @@ using Infrastructure.Data;
 
 namespace Infrastructure.Repositories
 {
-    public class HiloRespuestaRepository : GenericRepository<HiloRespuesta>, IHiloRepuestaRepository
+    public class HiloRespuestaRepository : GenericRepository<HiloRespuesta>, IHiloRespuestaRepository
     {
         private readonly notiAppContext _context;
 

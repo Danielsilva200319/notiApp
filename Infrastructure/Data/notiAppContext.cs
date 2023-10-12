@@ -14,7 +14,7 @@ namespace Infrastructure.Data
         {
         }
         public DbSet<Auditoria> Auditorias { get; set; }
-        public DbSet<EstadoNotificacion> EstadoNotificaciones { get; set; }
+        public DbSet<EstadoVsNotificacion> EstadoVsNotificaciones { get; set; }
         public DbSet<Formato> Formatos { get; set; }
         public DbSet<GenericoVsSubmodulo> GenericosVsSubmodulos { get; set; }
         public DbSet<HiloRespuesta> HiloRespuestas { get; set; }

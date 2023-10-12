@@ -6,7 +6,7 @@ using Core.Entities;
 
 namespace Core.Interfaces
 {
-    public interface IEstadoNotificacionRepository : IGenericRepository<EstadoNotificacion>
+    public interface IEstadoVsNotificacionRepository : IGenericRepository<EstadoVsNotificacion>
     {
         
     }

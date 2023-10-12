@@ -12,8 +12,8 @@ namespace Core.Entities
         public TipoNotificacion TipoNotificaciones { get; set; }
         public int IdRadicado { get; set; }
         public Radicado Radicados { get; set; }
-        public int IdEstadoNotificacion { get; set; }
-        public EstadoNotificacion EstadoNotificaciones { get; set; }
+        public int IdEstadoVsNotificacion { get; set; }
+        public EstadoVsNotificacion EstadoVsNotificaciones { get; set; }
         public int IdHiloRespuesta { get; set; }
         public HiloRespuesta HiloRespuestas { get; set; }
         public int IdFormato { get; set; }

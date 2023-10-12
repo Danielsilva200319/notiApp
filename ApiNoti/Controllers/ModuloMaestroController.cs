@@ -10,12 +10,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiNoti.Controllers
 {
-    public class AuditoriaController : BaseControllerAPi
+    public class ModuloMaestroController : BaseControllerAPi
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public AuditoriaController(IUnitOfWork unitOfWork, IMapper mapper)
+        public ModuloMaestroController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -23,75 +23,75 @@ namespace ApiNoti.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<AuditoriaDto>>> Get()
+        public async Task<ActionResult<IEnumerable<ModuloMaestroDto>>>Get()
         {
-            var auditorias = await _unitOfWork.Auditorias.GetAllAsync();
-            return _mapper.Map<List<AuditoriaDto>>(auditorias);
+            var moduloMaestros = await _unitOfWork.ModulosMaestros.GetAllAsync();
+            return _mapper.Map<List<ModuloMaestroDto>>(moduloMaestros);
         }
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<AuditoriaDto>>Get(int id)
+        public async Task<ActionResult<ModuloMaestroDto>>Get(int id)
         {
-            var mascota = await _unitOfWork.Auditorias.GetByIdAsync(id);
-            if(mascota == null)
+            var moduloMaestro = await _unitOfWork.ModulosMaestros.GetByIdAsync(id);
+            if(moduloMaestro == null)
             {
                 return NotFound();
             }
-            return _mapper.Map<AuditoriaDto>(mascota);
+            return _mapper.Map<ModuloMaestroDto>(moduloMaestro);
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<AuditoriaDto>>Post(AuditoriaDto auditoriaDto)
+        public async Task<ActionResult<ModuloMaestroDto>>Post(ModuloMaestroDto moduloMaestroDto)
         {
-            var auditoria = _mapper.Map<Auditoria>(auditoriaDto);
+            var moduloMaestro = _mapper.Map<ModuloMaestro>(moduloMaestroDto);
 
-            if(auditoriaDto.FechaCreacion == DateTime.MinValue)
+            if(moduloMaestroDto.FechaCreacion == DateTime.MinValue)
             {
-                auditoriaDto.FechaCreacion = DateTime.Now; 
+                moduloMaestroDto.FechaCreacion = DateTime.Now; 
             }
-            if(auditoriaDto.FechaModificacion == DateTime.MinValue)
+            if(moduloMaestroDto.FechaModificacion == DateTime.MinValue)
             {
-                auditoriaDto.FechaModificacion = DateTime.Now; 
+                moduloMaestroDto.FechaModificacion = DateTime.Now; 
             }
-            this._unitOfWork.Auditorias.Add(auditoria);
+            this._unitOfWork.ModulosMaestros.Add(moduloMaestro);
             await _unitOfWork.SaveAsync();
             
-            if(auditoria == null)
+            if(moduloMaestro == null)
             {
                 return BadRequest();
             }
-            auditoriaDto.Id = auditoria.Id;
-            return CreatedAtAction(nameof(Post), new {id = auditoriaDto.Id}, auditoriaDto);
+            moduloMaestroDto.Id = moduloMaestro.Id;
+            return CreatedAtAction(nameof(Post), new {id = moduloMaestroDto.Id}, moduloMaestroDto);
         }
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<AuditoriaDto>> Put(int id, [FromBody] AuditoriaDto auditoriaDto)
+        public async Task<ActionResult<ModuloMaestroDto>> Put(int id, [FromBody] ModuloMaestroDto moduloMaestroDto)
         {
-            if(auditoriaDto == null)
+            if(moduloMaestroDto == null)
             {
                 return NotFound();
             }
-            var auditorias = _mapper.Map<Auditoria>(auditoriaDto);
-            _unitOfWork.Auditorias.Update(auditorias);
+            var moduloMaestros = _mapper.Map<ModuloMaestro>(moduloMaestroDto);
+            _unitOfWork.ModulosMaestros.Update(moduloMaestros);
             await _unitOfWork.SaveAsync();
-            return auditoriaDto;
+            return moduloMaestroDto;
         }
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult>Delete(int id)
         {
-            var auditoria = await _unitOfWork.Auditorias.GetByIdAsync(id);
-            if(auditoria == null)
+            var moduloMaestro = await _unitOfWork.ModulosMaestros.GetByIdAsync(id);
+            if(moduloMaestro == null)
             {
                 return NotFound();
             }
-            _unitOfWork.Auditorias.Remove(auditoria);
+            _unitOfWork.ModulosMaestros.Remove(moduloMaestro);
             await _unitOfWork.SaveAsync();
             return NoContent();
         }

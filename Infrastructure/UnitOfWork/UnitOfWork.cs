@@ -14,7 +14,7 @@ namespace Infrastructure.UnitOfWork
         private readonly notiAppContext _context;
         private AuditoriaRepository _auditorias;
         private BlockChainRepository _blockChains;
-        private EstadoNotificacionRepository _estadoNotificaciones;
+        private EstadoVsNotificacionRepository _estadoVsNotificaciones;
         private FormatoRepository _formatos;
         private GenericoVsSubmoduloRepository _genericoVsSubmodulos;
         private HiloRespuestaRepository _hiloRespuestas;
@@ -51,15 +51,15 @@ namespace Infrastructure.UnitOfWork
                 return _blockChains;
             }
         }
-        public IEstadoNotificacionRepository EstadoNotificaciones
+        public IEstadoVsNotificacionRepository EstadoVsNotificaciones
         {
             get 
             { 
-                if(_estadoNotificaciones == null)
+                if(_estadoVsNotificaciones == null)
                 {
-                    _estadoNotificaciones = new EstadoNotificacionRepository(_context);
+                    _estadoVsNotificaciones = new EstadoVsNotificacionRepository(_context);
                 }
-                return _estadoNotificaciones;
+                return _estadoVsNotificaciones;
             }
         }
         public IFormatoRepository Formatos
@@ -84,7 +84,7 @@ namespace Infrastructure.UnitOfWork
                 return _genericoVsSubmodulos;
             }
         }
-        public IHiloRepuestaRepository HiloRepuestaS
+        public IHiloRespuestaRepository HiloRespuestas
         {
             get 
             { 

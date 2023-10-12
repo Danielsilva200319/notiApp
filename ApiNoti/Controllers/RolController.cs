@@ -10,12 +10,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiNoti.Controllers
 {
-    public class AuditoriaController : BaseControllerAPi
+    public class RolController : BaseControllerAPi
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public AuditoriaController(IUnitOfWork unitOfWork, IMapper mapper)
+        public RolController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -23,75 +23,75 @@ namespace ApiNoti.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<AuditoriaDto>>> Get()
+        public async Task<ActionResult<IEnumerable<RolDto>>>Get()
         {
-            var auditorias = await _unitOfWork.Auditorias.GetAllAsync();
-            return _mapper.Map<List<AuditoriaDto>>(auditorias);
+            var roles = await _unitOfWork.Roles.GetAllAsync();
+            return _mapper.Map<List<RolDto>>(roles);
         }
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<AuditoriaDto>>Get(int id)
+        public async Task<ActionResult<RolDto>>Get(int id)
         {
-            var mascota = await _unitOfWork.Auditorias.GetByIdAsync(id);
-            if(mascota == null)
+            var rol = await _unitOfWork.Roles.GetByIdAsync(id);
+            if(rol == null)
             {
                 return NotFound();
             }
-            return _mapper.Map<AuditoriaDto>(mascota);
+            return _mapper.Map<RolDto>(rol);
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<AuditoriaDto>>Post(AuditoriaDto auditoriaDto)
+        public async Task<ActionResult<RolDto>>Post(RolDto rolDto)
         {
-            var auditoria = _mapper.Map<Auditoria>(auditoriaDto);
+            var rol = _mapper.Map<Rol>(rolDto);
 
-            if(auditoriaDto.FechaCreacion == DateTime.MinValue)
+            if(rolDto.FechaCreacion == DateTime.MinValue)
             {
-                auditoriaDto.FechaCreacion = DateTime.Now; 
+                rolDto.FechaCreacion = DateTime.Now; 
             }
-            if(auditoriaDto.FechaModificacion == DateTime.MinValue)
+            if(rolDto.FechaModificacion == DateTime.MinValue)
             {
-                auditoriaDto.FechaModificacion = DateTime.Now; 
+                rolDto.FechaModificacion = DateTime.Now; 
             }
-            this._unitOfWork.Auditorias.Add(auditoria);
+            this._unitOfWork.Roles.Add(rol);
             await _unitOfWork.SaveAsync();
             
-            if(auditoria == null)
+            if(rol == null)
             {
                 return BadRequest();
             }
-            auditoriaDto.Id = auditoria.Id;
-            return CreatedAtAction(nameof(Post), new {id = auditoriaDto.Id}, auditoriaDto);
+            rolDto.Id = rol.Id;
+            return CreatedAtAction(nameof(Post), new {id = rolDto.Id}, rolDto);
         }
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<AuditoriaDto>> Put(int id, [FromBody] AuditoriaDto auditoriaDto)
+        public async Task<ActionResult<RolDto>> Put(int id, [FromBody] RolDto rolDto)
         {
-            if(auditoriaDto == null)
+            if(rolDto == null)
             {
                 return NotFound();
             }
-            var auditorias = _mapper.Map<Auditoria>(auditoriaDto);
-            _unitOfWork.Auditorias.Update(auditorias);
+            var roles = _mapper.Map<Rol>(rolDto);
+            _unitOfWork.Roles.Update(roles);
             await _unitOfWork.SaveAsync();
-            return auditoriaDto;
+            return rolDto;
         }
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult>Delete(int id)
         {
-            var auditoria = await _unitOfWork.Auditorias.GetByIdAsync(id);
-            if(auditoria == null)
+            var rol = await _unitOfWork.Roles.GetByIdAsync(id);
+            if(rol == null)
             {
                 return NotFound();
             }
-            _unitOfWork.Auditorias.Remove(auditoria);
+            _unitOfWork.Roles.Remove(rol);
             await _unitOfWork.SaveAsync();
             return NoContent();
         }

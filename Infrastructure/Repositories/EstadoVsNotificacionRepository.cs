@@ -8,11 +8,11 @@ using Infrastructure.Data;
 
 namespace Infrastructure.Repositories
 {
-    public class EstadoNotificacionRepository : GenericRepository<EstadoNotificacion>, IEstadoNotificacionRepository
+    public class EstadoVsNotificacionRepository : GenericRepository<EstadoVsNotificacion>, IEstadoVsNotificacionRepository
     {
         private readonly notiAppContext _context;
 
-        public EstadoNotificacionRepository(notiAppContext context) : base(context)
+        public EstadoVsNotificacionRepository(notiAppContext context) : base(context)
         {
             _context = context;
         }

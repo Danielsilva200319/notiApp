@@ -84,7 +84,7 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("BlockChain", (string)null);
                 });
 
-            modelBuilder.Entity("Core.Entities.EstadoNotificacion", b =>
+            modelBuilder.Entity("Core.Entities.EstadoVsNotificacion", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -248,7 +248,7 @@ namespace Infrastructure.Data.Migrations
                     b.Property<DateTime>("FechaModificacion")
                         .HasColumnType("datetime");
 
-                    b.Property<int>("IdEstadoNotificacion")
+                    b.Property<int>("IdEstadoVsNotificacion")
                         .HasColumnType("int");
 
                     b.Property<int>("IdFormato")
@@ -273,7 +273,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdEstadoNotificacion");
+                    b.HasIndex("IdEstadoVsNotificacion");
 
                     b.HasIndex("IdFormato");
 
@@ -517,9 +517,9 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Core.Entities.ModuloNotificacion", b =>
                 {
-                    b.HasOne("Core.Entities.EstadoNotificacion", "EstadoNotificaciones")
+                    b.HasOne("Core.Entities.EstadoVsNotificacion", "EstadoVsNotificaciones")
                         .WithMany("ModuloNotificaciones")
-                        .HasForeignKey("IdEstadoNotificacion")
+                        .HasForeignKey("IdEstadoVsNotificacion")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -553,7 +553,7 @@ namespace Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("EstadoNotificaciones");
+                    b.Navigation("EstadoVsNotificaciones");
 
                     b.Navigation("Formatos");
 
@@ -590,7 +590,7 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("BlockChains");
                 });
 
-            modelBuilder.Entity("Core.Entities.EstadoNotificacion", b =>
+            modelBuilder.Entity("Core.Entities.EstadoVsNotificacion", b =>
                 {
                     b.Navigation("ModuloNotificaciones");
                 });

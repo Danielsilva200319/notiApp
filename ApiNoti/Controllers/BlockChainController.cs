@@ -48,11 +48,11 @@ namespace ApiNoti.Controllers
         {
             var blockChain = _mapper.Map<BlockChain>(blockChainDto);
 
-            if (blockChainDto.FechaCreacion == DateTime.MinValue)
+            if(blockChainDto.FechaCreacion == DateTime.MinValue)
             {
                 blockChainDto.FechaCreacion = DateTime.Now; 
             }
-            if (blockChainDto.FechaModificacion == DateTime.MinValue)
+            if(blockChainDto.FechaModificacion == DateTime.MinValue)
             {
                 blockChainDto.FechaModificacion = DateTime.Now; 
             }
