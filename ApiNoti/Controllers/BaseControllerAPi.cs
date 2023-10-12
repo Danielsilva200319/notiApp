@@ -10,6 +10,6 @@ namespace ApiNoti.Controllers
     [Route("[controller]")]
     public class BaseControllerAPi
     {
-
+        
     }
 }
