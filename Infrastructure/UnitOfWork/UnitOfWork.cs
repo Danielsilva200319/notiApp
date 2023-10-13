@@ -185,7 +185,7 @@ namespace Infrastructure.UnitOfWork
         }
         public ITipoNotificacionRepository TiposNotificaciones
         {
-            get 
+            get
             { 
                 if(_tiposNotificaciones == null)
                 {
