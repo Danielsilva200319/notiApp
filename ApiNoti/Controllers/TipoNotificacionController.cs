@@ -14,7 +14,6 @@ namespace ApiNoti.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private int Id;
 
         public TipoNotificacionController(IUnitOfWork unitOfWork, IMapper mapper)
         {
