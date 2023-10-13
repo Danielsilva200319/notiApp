@@ -100,7 +100,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EstadoNotificación", (string)null);
+                    b.ToTable("EstadoVsNotificación", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Formato", b =>

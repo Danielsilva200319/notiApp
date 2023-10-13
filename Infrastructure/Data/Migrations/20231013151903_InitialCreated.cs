@@ -34,7 +34,7 @@ namespace Infrastructure.Data.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "EstadoNotificación",
+                name: "EstadoVsNotificación",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -46,7 +46,7 @@ namespace Infrastructure.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EstadoNotificación", x => x.Id);
+                    table.PrimaryKey("PK_EstadoVsNotificación", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -320,9 +320,9 @@ namespace Infrastructure.Data.Migrations
                 {
                     table.PrimaryKey("PK_ModuloNotificación", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ModuloNotificación_EstadoNotificación_IdEstadoVsNotificacion",
+                        name: "FK_ModuloNotificación_EstadoVsNotificación_IdEstadoVsNotificaci~",
                         column: x => x.IdEstadoVsNotificacion,
-                        principalTable: "EstadoNotificación",
+                        principalTable: "EstadoVsNotificación",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -500,7 +500,7 @@ namespace Infrastructure.Data.Migrations
                 name: "PermisoGenerico");
 
             migrationBuilder.DropTable(
-                name: "EstadoNotificación");
+                name: "EstadoVsNotificación");
 
             migrationBuilder.DropTable(
                 name: "Formato");

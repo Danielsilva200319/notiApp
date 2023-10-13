@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(notiAppContext))]
-    [Migration("20231012161242_InitialCreated")]
+    [Migration("20231013151903_InitialCreated")]
     partial class InitialCreated
     {
         /// <inheritdoc />
@@ -103,7 +103,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EstadoNotificación", (string)null);
+                    b.ToTable("EstadoVsNotificación", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Formato", b =>
