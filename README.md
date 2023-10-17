@@ -1,5 +1,5 @@
 # notiApp
-# Creación de Proyecto
+# Creación de Proyecto Terminal
 Primero que todo creamos la carpeta o repositorio en donde queremos nuestro proyecto;
 Luego comensamos creando los "classLib", es decir las clases pertinentes en nuestro proyecto que son:
 ## Creación de ClassLib
@@ -24,4 +24,7 @@ dotnet add reference ..\Core\ = Esta va en el folder Infrastructure.
 ```
 Luego, instalamos todos los paquetes necesarios para nuestro proyecto, 
 tener en cuenta que algunos van en la Api y otros van en Infrastructure.
+
+# VS Code
+Asi tiene que verse en el VSCode cuando queremos ver nuestro proyecto
 ![image](https://drive.google.com/uc?export=view&id=1pst95gYdKZcRnal7iGLq47HFKBkr4lsm)
