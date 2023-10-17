@@ -9,5 +9,9 @@ dotnet new classLib -o Infrastructure
 ```
 Sin embargo, nos falta crear lo más importante y es nuestra webApi:
 ```
-    dotnet new webapi -o Api
+dotnet new webapi -o Api
+```
+Le damos soluciones a las clases y al api:
+```
+dotnet sln add 
 ```
