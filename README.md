@@ -42,4 +42,21 @@ Después comenzamos añadiendo las informaciones necesarias para las clases, com
 
 ![Alt text](image.png)
 
-Luego de que ya hicimos ese procedimiento, creamos uan carpeta llamada "Data" en donde le añadimos una clase llamada "NotiAppContext", en donde colocamos todos los DbSet y 
+Luego de que ya hicimos ese procedimiento, creamos uan carpeta
+llamada "Data" en donde le añadimos una clase llamada
+"NotiAppContext", en donde colocamos todos los DbSet y proporcionamos un código que se utiliza para configuar el modelo de datos de la base de datos; se asegura de que las configuraciones definidas en clases específicas sean aplicadas a las entidades y relaciones en la base de datos. Esto es útil para mantener un código limpio y organizado, especialmente en aplicaciones con modelos de datos complejos.
+
+![Alt text](<Captura de pantalla 2023-10-17 155638.jpg>)
+
+Después de ya tener los DbSet, creamos una carpeta dentro de la carpeta Data llamada "Configration", en donde se pondra todos las clases que hicimos de Entities, pero con un adicional que es configuration, ahí, como su nombre lo dice vamos a configurar nuestras clases para saber que es lo que me va a mostrar la base de datos.
+
+![Alt text](<Captura de pantalla 2023-10-17 160128.jpg>)
+
+Ya que tenemos las configuraciones, lo coloamos en la base de datos "MySql" donde colocamos un código para poder subirlo desde la terminal.
+
+![Alt text](<Captura de pantalla 2023-10-17 161127.jpg>)
+
+Luego creamos la union en los json para que me salga con el nombre que queremos y poder que la ejecución sea correcta.
+
+![Alt text](<Captura de pantalla 2023-10-17 161354.jpg>)
+También se coloca en el otro JSON del Api.
