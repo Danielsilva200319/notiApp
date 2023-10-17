@@ -26,6 +26,14 @@ Luego, instalamos todos los paquetes necesarios para nuestro proyecto,
 tener en cuenta que algunos van en la Api y otros van en Infrastructure.
 
 # VS Code
-Asi tiene que verse en el VSCode cuando queremos ver nuestro proyecto
+Asi tiene que estar en el VSCode cuando queremos ver nuestro proyecto
 
 ![Alt text](<Captura de pantalla 2023-10-17 124029.png>)
+
+Nos metemos en Core y creamos una carpeta llamada "Entities" y le añadimos las clases que nos dan en el analisis de datos
+
+![Alt text](<Captura de pantalla 2023-10-17 125429.png>)
+
+En la carpeta Entities creamos una clase llamada "BaseEntity" para colocar los codigos que se ejecutan en todas las clases, por ejemplo, el Id
+
+![Alt text](<Captura de pantalla 2023-10-17 125633.png>)
