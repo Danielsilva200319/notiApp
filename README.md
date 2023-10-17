@@ -37,3 +37,9 @@ Nos metemos en Core y creamos una carpeta llamada "Entities" y le añadimos las 
 En la carpeta Entities creamos una clase llamada "BaseEntity" para colocar los codigos que se ejecutan en todas las clases, por ejemplo, el Id
 
 ![Alt text](<Captura de pantalla 2023-10-17 125633.png>)
+
+Después comenzamos añadiendo las informaciones necesarias para las clases, como el nombre, apellidos, email, etc.
+
+![Alt text](image.png)
+
+Luego de que ya hicimos ese procedimiento, creamos uan carpeta llamada "Data" en donde le añadimos una clase llamada "NotiAppContext", en donde colocamos todos los DbSet y 
