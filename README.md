@@ -13,5 +13,15 @@ dotnet new webapi -o Api
 ```
 Le damos soluciones a las clases y al api:
 ```
-dotnet sln add 
+dotnet sln add Api
+dotnet sln add Core
+dotnet sln add Infrastructure
 ```
+Después hacemos las referencias en nuestro proyecto
+```
+dotnet add reference ..\Infrastructure\ = Esta referencia va en el folder de Api
+dotnet add reference ..\Core\ = Esta va en el folder Infrastructure.
+```
+Luego, instalamos todos los paquetes necesarios para nuestro proyecto, 
+tener en cuenta que algunos van en la Api y otros van en Infrastructure.
+![image](https://drive.google.com/uc?export=view&id=1pst95gYdKZcRnal7iGLq47HFKBkr4lsm)
