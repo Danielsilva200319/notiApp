@@ -27,4 +27,5 @@ tener en cuenta que algunos van en la Api y otros van en Infrastructure.
 
 # VS Code
 Asi tiene que verse en el VSCode cuando queremos ver nuestro proyecto
+
 ![Alt text](<Captura de pantalla 2023-10-17 124029.png>)
