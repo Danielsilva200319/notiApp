@@ -1,11 +1,16 @@
 # notiApp
 # Creación de Proyecto Terminal
-Primero que todo creamos la carpeta o repositorio en donde queremos nuestro proyecto;
+Primero que todo creamos la carpeta o repositorio en donde queremos nuestro proyecto, Luego le añadimos la solución al proyecto:
+
+```
+1. cd Proyecto
+2. dotnet new sln
+```
 Luego comensamos creando los "classLib", es decir las clases pertinentes en nuestro proyecto que son:
 ## Creación de ClassLib
 ```
-dotnet new classLib -o Core
-dotnet new classLib -o Infrastructure
+dotnet new classlib -o Core
+dotnet new classlib -o Infrastructure
 ```
 Sin embargo, nos falta crear lo más importante y es nuestra webApi:
 ```
@@ -52,11 +57,42 @@ Después de ya tener los DbSet, creamos una carpeta dentro de la carpeta Data ll
 
 ![Alt text](<Captura de pantalla 2023-10-17 160128.jpg>)
 
-Ya que tenemos las configuraciones, lo coloamos en la base de datos "MySql" donde colocamos un código para poder subirlo desde la terminal.
+Ya que tenemos las configuraciones, lo coloamos en la base de datos "MySql" donde colocamos un código para poder subirlo desde la terminal. Eso lo creamos en la carpeta API, en la clase "Program.cs".
 
 ![Alt text](<Captura de pantalla 2023-10-17 161127.jpg>)
 
 Luego creamos la union en los json para que me salga con el nombre que queremos y poder que la ejecución sea correcta.
 
 ![Alt text](<Captura de pantalla 2023-10-17 161354.jpg>)
-También se coloca en el otro JSON del Api.
+También se coloca en el otro JSON del Api,
+podemos Hacer una migración si queremos.
+
+# Migracion y subir al MySql
+Para hacer una migration y actualizar la base de datos tenemos que añadir dos códigos:
+
+MIGRACIÓN:
+```
+dotnet ef migrations add InitialCreated --project \Infrastructure\ --startup-project \API\ --output-dir ./Data/Migrations
+```
+UPDATE:
+```
+dotnet ef database update --project \Infrastructure\ --startup-project \API\ 
+```
+
+Creamos una carpeta llamda "Interfaces" en Core, después creamos una interface en esa carpeta llamada "IGenericRepository"
+
+![Alt text](image-1.png)
+
+Después en Infrastructure creamos una carpeta llamada "Repositories" y colocamos una clase llamada "GenericRepository" en donde colocamos un código.
+
+![Alt text](image-2.png)
+
+luego comenzamos a crear las interfaces que nos faltan, es decir las interfaces de todas las entities, y aparte de las interfaces toca añadirle una clase en Repositories a cada una.
+
+![Alt text](image-3.png)
+
+colocarlo en todas las interfaces
+![Alt text](image-4.png)
+
+colocarlo en todas los repository   
+![Alt text](image-5.png)
