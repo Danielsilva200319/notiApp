@@ -34,12 +34,12 @@ namespace ApiNoti.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<AuditoriaDto>>Get(int id)
         {
-            var mascota = await _unitOfWork.Auditorias.GetByIdAsync(id);
-            if(mascota == null)
+            var auditoria = await _unitOfWork.Auditorias.GetByIdAsync(id);
+            if(auditoria == null)
             {
                 return NotFound();
             }
-            return _mapper.Map<AuditoriaDto>(mascota);
+            return _mapper.Map<AuditoriaDto>(auditoria);
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
