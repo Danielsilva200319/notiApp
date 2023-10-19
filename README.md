@@ -1,98 +1,260 @@
-# notiApp
-# Creación de Proyecto Terminal
-Primero que todo creamos la carpeta o repositorio en donde queremos nuestro proyecto, Luego le añadimos la solución al proyecto:
+# Estructura del Proyecto NOTIAPP
 
-```
-1. cd Proyecto
-2. dotnet new sln
-```
-Luego comensamos creando los "classLib", es decir las clases pertinentes en nuestro proyecto que son:
-## Creación de ClassLib
-```
-dotnet new classlib -o Core
-dotnet new classlib -o Infrastructure
-```
-Sin embargo, nos falta crear lo más importante y es nuestra webApi:
-```
-dotnet new webapi -o Api
-```
-Le damos soluciones a las clases y al api:
-```
-dotnet sln add Api
-dotnet sln add Core
-dotnet sln add Infrastructure
-```
-Después hacemos las referencias en nuestro proyecto
-```
-dotnet add reference ..\Infrastructure\ = Esta referencia va en el folder de Api
-dotnet add reference ..\Core\ = Esta va en el folder Infrastructure.
-```
-Luego, instalamos todos los paquetes necesarios para nuestro proyecto, 
-tener en cuenta que algunos van en la Api y otros van en Infrastructure.
+## 1. Creación de la Solución
 
-# VS Code
-Asi tiene que estar en el VSCode cuando queremos ver nuestro proyecto
+- Se inicia creando una solución que servirá como el contenedor principal para tus proyectos.
+```
+dotnet new sln
+```
+
+## 2. Proyectos
+
+El proyecto se divide en tres capas principales:
 
 ![Alt text](<Captura de pantalla 2023-10-17 124029.png>)
 
-Nos metemos en Core y creamos una carpeta llamada "Entities" y le añadimos las clases que nos dan en el analisis de datos
-
-![Alt text](<Captura de pantalla 2023-10-17 125429.png>)
-
-En la carpeta Entities creamos una clase llamada "BaseEntity" para colocar los codigos que se ejecutan en todas las clases, por ejemplo, el Id
-
-![Alt text](<Captura de pantalla 2023-10-17 125633.png>)
-
-Después comenzamos añadiendo las informaciones necesarias para las clases, como el nombre, apellidos, email, etc.
-
-![Alt text](image.png)
-
-Luego de que ya hicimos ese procedimiento, creamos uan carpeta
-llamada "Data" en donde le añadimos una clase llamada
-"NotiAppContext", en donde colocamos todos los DbSet y proporcionamos un código que se utiliza para configuar el modelo de datos de la base de datos; se asegura de que las configuraciones definidas en clases específicas sean aplicadas a las entidades y relaciones en la base de datos. Esto es útil para mantener un código limpio y organizado, especialmente en aplicaciones con modelos de datos complejos.
-
-![Alt text](<Captura de pantalla 2023-10-17 155638.jpg>)
-
-Después de ya tener los DbSet, creamos una carpeta dentro de la carpeta Data llamada "Configration", en donde se pondra todos las clases que hicimos de Entities, pero con un adicional que es configuration, ahí, como su nombre lo dice vamos a configurar nuestras clases para saber que es lo que me va a mostrar la base de datos.
-
-![Alt text](<Captura de pantalla 2023-10-17 160128.jpg>)
-
-Ya que tenemos las configuraciones, lo coloamos en la base de datos "MySql" donde colocamos un código para poder subirlo desde la terminal. Eso lo creamos en la carpeta API, en la clase "Program.cs".
-
-![Alt text](<Captura de pantalla 2023-10-17 161127.jpg>)
-
-Luego creamos la union en los json para que me salga con el nombre que queremos y poder que la ejecución sea correcta.
-
-![Alt text](<Captura de pantalla 2023-10-17 161354.jpg>)
-También se coloca en el otro JSON del Api,
-podemos Hacer una migración si queremos.
-
-# Migracion y subir al MySql
-Para hacer una migration y actualizar la base de datos tenemos que añadir dos códigos:
-
-MIGRACIÓN:
+#### Capa de Presentación (Web API: apiNoti)
 ```
-dotnet ef migrations add InitialCreated --project \Infrastructure\ --startup-project \API\ --output-dir ./Data/Migrations
-```
-UPDATE:
-```
-dotnet ef database update --project \Infrastructure\ --startup-project \API\ 
+dotnet new webapi -o apiNoti
 ```
 
-Creamos una carpeta llamda "Interfaces" en Core, después creamos una interface en esa carpeta llamada "IGenericRepository"
+- Controladores: Manejan las solicitudes HTTP y las respuestas.
+- DTOs (Data Transfer Objects): Definen la estructura de los datos que se envían entre la Web API y el cliente.
+- Extensions: Configura servicios relacionados con CORS (Cross-Origin Resource Sharing) y rate limiting (limitación de velocidad) en una aplicación web ASP.NET Core.
+- Profiles: Define perfiles de mapeo utilizando AutoMapper para transformar datos entre las entidades del sistema y los objetos de transferencia de datos (DTOs), simplificando así la conversión de datos en una aplicación ASP.NET Core.
+- Program.cs: Configura y construye una aplicación ASP.NET Core, agregando servicios al contenedor, configurando características como rate limiting, CORS, AutoMapper y Swagger para documentación de API, y estableciendo las rutas y middleware necesarios para manejar solicitudes HTTP en la aplicación web.
 
-![Alt text](image-1.png)
+![Alt text](<Captura de pantalla 2023-10-19 06-55-19.png>)
 
-Después en Infrastructure creamos una carpeta llamada "Repositories" y colocamos una clase llamada "GenericRepository" en donde colocamos un código.
+#### Capa de Lógica de Negocio (Core)
+```
+dotnet new classlibi -o Core
+```
 
-![Alt text](image-2.png)
+- Entidades: Representan los objetos fundamentales de la aplicación.
+- Interfaces y Repositorios: Definen operaciones comunes como agregar, actualizar, eliminar y buscar. 
+- Unidades de Trabajo (IUnitOfWork): Coordinan y agrupan operaciones relacionales en la base de datos.
 
-luego comenzamos a crear las interfaces que nos faltan, es decir las interfaces de todas las entities, y aparte de las interfaces toca añadirle una clase en Repositories a cada una.
+![Alt text](<Captura de pantalla 2023-10-19 06-57-44.png>)
 
-![Alt text](image-3.png)
+#### Capa de Acceso a Datos (Infrastructure)
+```
+dotnet new classlib -o Infrastructure
+```
 
-colocarlo en todas las interfaces
-![Alt text](image-4.png)
+- Context: Actúa como intermediario entre la Web API y la base de datos.
+- Configuraciones: Definen cómo se mapean las entidades a las tablas de la base de datos.
+- Repositorios Concretos: Implementan la lógica para interactuar con la base de datos.
+- Unidad de trabajo (UnitOfWork): Representa una clase llamada "UnitOfWork" que actúa como un punto central para acceder a múltiples repositorios que interactúan con una base de datos en una aplicación ASP.NET Core, lo que permite coordinar y gestionar transacciones y operaciones de base de datos de manera eficiente.
 
-colocarlo en todas los repository   
-![Alt text](image-5.png)
+![Alt text](<Captura de pantalla 2023-10-19 07-04-49.png>)
+
+## Agregar las soluciones a cada una:
+```
+dotnet sln add apiNoti
+dotnet sln add Core
+dotnet sln add Infrastructure
+```
+## Hacer las referencias en el proyecto:
+```
+dotnet add reference ..\Infrastructure
+dotnet add reference ..\Core
+```
+
+### INSTALACION DE PAQUETES.
+#### Proyecto WebApi
+```
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 7.0.10
+dotnet add package Microsoft.EntityFrameworkCore --version 7.0.10
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.10
+dotnet add package Microsoft.Extensions.DependencyInjection --version 7.0.0
+dotnet add package System.IdentityModel.Tokens.Jwt --version 6.32.3
+dotnet add package Serilog.AspNetCore --version 7.0.0
+dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection --version 12.0.1
+```
+#### Proyecto Infraestructure
+```
+dotnet add package Pomelo.EntityFrameworkCore.MySql --version 7.0.0
+dotnet add package Microsoft.EntityFrameworkCore --version 7.0.10
+dotnet add package CsvHelper --version 30.0.1
+```
+
+## 3. Configuración de la Base de Datos
+
+- Se configuran las cadenas de conexión en el archivo `appsettings.Development.json` y `appsettings.json` para permitir que la aplicación acceda y almacene datos en la base de datos.
+
+![Alt text](<Captura de pantalla 2023-10-19 07-08-48.png>)
+
+## 4. Inyección de Dependencias
+
+- Se implementa la inyección de dependencias para administrar la creación y el ciclo de vida de los objetos utilizados en la aplicación, incluyendo la conexión a la base de datos.
+
+![Alt text](<Captura de pantalla 2023-10-19 07-16-41.png>)
+
+## 5. Entidades
+
+- En la capa Core, se definen las entidades que representan los objetos fundamentales en la aplicación. Estas clases se utilizan para modelar la lógica de negocio y mapear datos desde la base de datos.
+
+![Alt text](<Captura de pantalla 2023-10-19 07-18-43.png>)
+
+## 6. Configuraciones
+
+- En la capa de Infraestructura, se crean clases de configuración para cada entidad. Estas clases se utilizan con Entity Framework Core para definir cómo se mapean las entidades a las tablas de la base de datos, estableciendo nombres de tablas, restricciones, propiedades y claves primarias.
+
+![Alt text](<Captura de pantalla 2023-10-19 07-20-02.png>)
+
+## 7. Controladores de la Web API
+
+- En el proyecto Web API, se crean controladores para definir rutas de acceso y lógica para manejar solicitudes HTTP. Estos controladores permiten realizar operaciones CRUD en las entidades.
+
+![Alt text](<Captura de pantalla 2023-10-19 07-20-02.png>)
+```
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using ApiNoti.Dtos;
+using AutoMapper;
+using Core.Entities;
+using Core.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+
+namespace ApiNoti.Controllers
+{
+    public class AuditoriaController : BaseControllerAPi
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+
+        public AuditoriaController(IUnitOfWork unitOfWork, IMapper mapper)
+        {
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<AuditoriaDto>>> Get()
+        {
+            var auditorias = await _unitOfWork.Auditorias.GetAllAsync();
+            return _mapper.Map<List<AuditoriaDto>>(auditorias);
+        }
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<AuditoriaDto>>Get(int id)
+        {
+            var mascota = await _unitOfWork.Auditorias.GetByIdAsync(id);
+            if(mascota == null)
+            {
+                return NotFound();
+            }
+            return _mapper.Map<AuditoriaDto>(mascota);
+        }
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<AuditoriaDto>>Post(AuditoriaDto auditoriaDto)
+        {
+            var auditoria = _mapper.Map<Auditoria>(auditoriaDto);
+
+            if(auditoriaDto.FechaCreacion == DateTime.MinValue)
+            {
+                auditoriaDto.FechaCreacion = DateTime.Now; 
+            }
+            if(auditoriaDto.FechaModificacion == DateTime.MinValue)
+            {
+                auditoriaDto.FechaModificacion = DateTime.Now; 
+            }
+            this._unitOfWork.Auditorias.Add(auditoria);
+            await _unitOfWork.SaveAsync();
+            
+            if(auditoria == null)
+            {
+                return BadRequest();
+            }
+            auditoriaDto.Id = auditoria.Id;
+            return CreatedAtAction(nameof(Post), new {id = auditoriaDto.Id}, auditoriaDto);
+        }
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<AuditoriaDto>> Put(int id, [FromBody] AuditoriaDto auditoriaDto)
+        {
+            if(auditoriaDto == null)
+            {
+                return NotFound();
+            }
+            var auditorias = _mapper.Map<Auditoria>(auditoriaDto);
+            _unitOfWork.Auditorias.Update(auditorias);
+            await _unitOfWork.SaveAsync();
+            return auditoriaDto;
+        }
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult>Delete(int id)
+        {
+            var auditoria = await _unitOfWork.Auditorias.GetByIdAsync(id);
+            if(auditoria == null)
+            {
+                return NotFound();
+            }
+            _unitOfWork.Auditorias.Remove(auditoria);
+            await _unitOfWork.SaveAsync();
+            return NoContent();
+        }
+    }
+}
+```
+
+## 8. Perfiles de Mapeo (Mapping Profiles)
+
+- Se utiliza AutoMapper para mapear datos entre las entidades y objetos de transferencia de datos (DTOs). Esto facilita la conversión de datos entre las capas de presentación y lógica de negocio.
+
+![Alt text](<Captura de pantalla 2023-10-19 07-23-05.png>)
+
+```
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using ApiNoti.Dtos;
+using AutoMapper;
+using Core.Entities;
+using Microsoft.AspNetCore.Http.HttpResults;
+
+namespace ApiNoti.Profiles
+{
+    public class MappingProfiles : Profile
+    {
+        public MappingProfiles()
+        {
+            CreateMap<Auditoria, AuditoriaDto>().ReverseMap();
+            CreateMap<BlockChain, BlockChainDto>().ReverseMap();
+            CreateMap<EstadoVsNotificacion, EstadoVsNotificacionDto>().ReverseMap();
+            CreateMap<Formato, FormatoDto>().ReverseMap();
+            CreateMap<GenericoVsSubmodulo, GenericoVsSubmoduloDto>().ReverseMap();
+            CreateMap<HiloRespuesta, HiloRespuestaDto>().ReverseMap();
+            CreateMap<MaestroVsSubmodulo, MaestroVsSubmoduloDto>().ReverseMap();
+            CreateMap<ModuloMaestro, ModuloMaestroDto>().ReverseMap();
+            CreateMap<ModuloNotificacion, ModuloNotificacionDto>().ReverseMap();
+            CreateMap<PermisoGenerico, PermisoGenericoDto>().ReverseMap();
+            CreateMap<Radicado, RadicadoDto>().ReverseMap();
+            CreateMap<Rol, RolDto>().ReverseMap();
+            CreateMap<RolVsMaestro, RolVsMaestroDto>().ReverseMap();
+            CreateMap<Submodulo, SubmoduloDto>().ReverseMap();
+            CreateMap<TipoNotificacion, TipoNotificacionDto>().ReverseMap();
+            CreateMap<TipoRequerimiento, TipoRequerimientoDto>().ReverseMap();
+        }
+    }
+}
+```
+
+## 9. Migraciones y Actualización de la Base de Datos
+
+- Se utilizan las herramientas de Entity Framework Core para generar migraciones que crean o actualizan la base de datos según las definiciones de entidades y configuraciones. Los comandos `dotnet ef migrations` y `dotnet ef database update` se utilizan para aplicar estas migraciones.
+
+![Alt text](<Captura de pantalla 2023-10-19 07-24-39.png>)
