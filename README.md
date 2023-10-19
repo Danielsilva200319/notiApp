@@ -256,5 +256,9 @@ namespace ApiNoti.Profiles
 ## 9. Migraciones y Actualización de la Base de Datos
 
 - Se utilizan las herramientas de Entity Framework Core para generar migraciones que crean o actualizan la base de datos según las definiciones de entidades y configuraciones. Los comandos `dotnet ef migrations` y `dotnet ef database update` se utilizan para aplicar estas migraciones.
+```
+dotnet ef migrations add InitalCreated --project .\Infrastructure --startup-project .\apiNoti --output-dir ./Data/Migrations
+dotnet ef database update --project .\Infrastructure --startup-project .\apiNoti
+```
 
 ![Alt text](<Captura de pantalla 2023-10-19 07-24-39.png>)
