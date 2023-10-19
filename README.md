@@ -107,7 +107,7 @@ dotnet add package CsvHelper --version 30.0.1
 
 - En el proyecto Web API, se crean controladores para definir rutas de acceso y lógica para manejar solicitudes HTTP. Estos controladores permiten realizar operaciones CRUD en las entidades.
 
-![Alt text](<Captura de pantalla 2023-10-19 07-20-02.png>)
+![Alt text](<Captura de pantalla 2023-10-19 07-21-22.png>)
 ```
 using System;
 using System.Collections.Generic;
