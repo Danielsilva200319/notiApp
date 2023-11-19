@@ -56,7 +56,7 @@ namespace ApiNoti.Controllers
             {
                 auditoriaDto.FechaModificacion = DateTime.Now; 
             }
-            this._unitOfWork.Auditorias.Add(auditoria);
+            _unitOfWork.Auditorias.Add(auditoria);
             await _unitOfWork.SaveAsync();
             
             if(auditoria == null)
